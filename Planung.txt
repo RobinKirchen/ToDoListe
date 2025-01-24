@@ -1,0 +1,20 @@
+id hochzählen -> submit button
+
+jedem to do id zuweisen
+
+darstellungsfenster als id to do id zuweisen
+
+
+
+DESIGN.
+
+anlegen von todos:
+	Eingabefeld Submitbutton (Detailsfeld für Beschreibung)
+
+
+Übersicht
+
+Liste zum Darstellen
+An jedem Eintrag Button zum Bearbeiten oder Löschen
+
+New Entry Button
