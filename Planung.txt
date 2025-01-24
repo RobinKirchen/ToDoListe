@@ -1,6 +1,8 @@
 id hochzählen -> submit button
 
-jedem to do id zuweisen
+jedem to do id und prio zuweisen
+
+sortieren nach prio oder anch id
 
 darstellungsfenster als id to do id zuweisen
 

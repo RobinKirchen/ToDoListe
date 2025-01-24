@@ -1,7 +1,12 @@
 <script setup>
+import { ref } from 'vue';
+
+
+let todos = ref([]);
 
 function addToList() {
-
+  todos.value.push(document.getElementById("entry").value);
+  console.log(todos);
 }
 
 </script>
@@ -9,11 +14,14 @@ function addToList() {
 <template>
   <main>
     <h2>ToDoList:</h2>
-    <form>
       <input type="text" id="entry">
       <button @click="addToList">Add item</button>
-    </form>
-    <ul></ul>
+    <div v-if="todos.length > 0">
+      <ul v-for="entry in todos">
+      {{ entry }}
+      </ul>
+   </div>
+   <div v-else>Add an entry to your list</div>
     
   </main>
 </template>
