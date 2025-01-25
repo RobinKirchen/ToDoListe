@@ -28,7 +28,7 @@ function deleteEntry(todo) {
       <div v-if="todos.length > 0" v-for="entry in todos">
         <div class="todo-entry">
           <input type="checkbox">
-          {{ entry }}
+          <span class="todo-text">{{ entry }}</span>
           <button @click="deleteEntry(entry)" class="delete">Delete</button>
         </div>
       </div>
@@ -58,13 +58,18 @@ header {
 }
 
 main .todo-entry {
-  word-wrap: break-word;
-  display: flex;
-  place-items: center;
+  display: flex;               
+  align-items: center;          
+  justify-content: space-between;  /* Distribute space between the checkbox the text and delete button. For equal space distribution on all sides use space-around instead*/
   font-size: large;
-  flex-wrap: wrap;
   width: 100%;
-  overflow: auto;
+  margin-bottom: 5px;
+}
+
+main .todo-text {
+  margin-left: 5px;
+  flex-grow: 1;                 /* Allow the text to take up remaining space */
+  text-align: left;
 }
 
 main .delete{
