@@ -1,9 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 let todos = ref([]);
 let newTodo = ref("");
 let id = 0;
+let hideCompleted = ref(false);
+
+
+const filteredTodos = computed(() => {
+  return hideCompleted.value ? todos.value.filter(entry => entry.completed === false) : todos.value;
+});
 
 function addToList() {
 
@@ -11,15 +17,22 @@ function addToList() {
     return;
   }
 
-  todos.value.push({id: id, name:newTodo.value});
+  todos.value.push(
+    {
+    id: id, 
+    name: newTodo.value,
+    completed: false
+    }
+  );
   id++;
   newTodo.value = "";
   console.log(todos);
 }
 
-function deleteEntry(id) {
-  todos.value = todos.value.filter(entry => entry.id !== id);
+function deleteEntry(entryId) {
+  todos.value = todos.value.filter(entry => entry.id !== entryId);
 }
+
 
 </script>
 
@@ -29,14 +42,15 @@ function deleteEntry(id) {
     <input type="text" id="entry" v-model="newTodo" placeholder="Add a new todo">
     <button @click="addToList">Add item</button>
 
-      <div v-if="todos.length > 0" v-for="entry in todos">
+      <div v-if="todos.length > 0" v-for="entry in filteredTodos">
         <div class="todo-entry">
-          <input type="checkbox">
+          <input type="checkbox" v-model="entry.completed">
           <span class="todo-text">{{ entry.name }}</span>
           <button @click="deleteEntry(entry.id)" class="delete">Delete</button>
         </div>
       </div>
     <div v-else>Add an entry to your list</div>
+    <button @click="hideCompleted = !hideCompleted">{{hideCompleted ? "Show All" : "Hide completed"}}</button>
 
   </main>
 </template>

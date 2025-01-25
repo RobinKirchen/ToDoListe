@@ -20,3 +20,5 @@ Liste zum Darstellen
 An jedem Eintrag Button zum Bearbeiten oder Löschen
 
 New Entry Button
+
+funktion um fertige todos auszublenden
