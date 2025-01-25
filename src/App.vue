@@ -1,12 +1,20 @@
 <script setup>
 import { ref } from 'vue';
 
-
 let todos = ref([]);
+let newTodo = ref("");
 
 function addToList() {
-  todos.value.push(document.getElementById("entry").value);
+
+  if(newTodo.value.length > 0) {
+    todos.value.push(newTodo.value);
+  }
+  newTodo.value = "";
   console.log(todos);
+}
+
+function deleteEntry(todo) {
+  todos.value = todos.value.filter(entry => entry !== todo);
 }
 
 </script>
@@ -14,19 +22,23 @@ function addToList() {
 <template>
   <main>
     <h2>ToDoList:</h2>
-      <input type="text" id="entry">
-      <button @click="addToList">Add item</button>
-    <div v-if="todos.length > 0">
-      <ul v-for="entry in todos">
-      {{ entry }}
-      </ul>
-   </div>
-   <div v-else>Add an entry to your list</div>
-    
+    <input type="text" id="entry" v-model="newTodo" placeholder="Add a new todo">
+    <button @click="addToList">Add item</button>
+
+      <div v-if="todos.length > 0" v-for="entry in todos">
+        <div class="todo-entry">
+          <input type="checkbox">
+          {{ entry }}
+          <button @click="deleteEntry(entry)" class="delete">Delete</button>
+        </div>
+      </div>
+    <div v-else>Add an entry to your list</div>
+
   </main>
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
 }
@@ -43,5 +55,21 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
+}
+
+main .todo-entry {
+  word-wrap: break-word;
+  display: flex;
+  place-items: center;
+  font-size: large;
+  flex-wrap: wrap;
+  width: 100%;
+  overflow: auto;
+}
+
+main .delete{
+  float: right;
+  border-color: blueviolet;
+  border-width: 1px;
 }
 </style>
