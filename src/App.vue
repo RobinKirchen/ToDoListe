@@ -3,18 +3,22 @@ import { ref } from 'vue';
 
 let todos = ref([]);
 let newTodo = ref("");
+let id = 0;
 
 function addToList() {
 
-  if(newTodo.value.length > 0) {
-    todos.value.push(newTodo.value);
+  if(newTodo.value.length === 0) {
+    return;
   }
+
+  todos.value.push({id: id, name:newTodo.value});
+  id++;
   newTodo.value = "";
   console.log(todos);
 }
 
-function deleteEntry(todo) {
-  todos.value = todos.value.filter(entry => entry !== todo);
+function deleteEntry(id) {
+  todos.value = todos.value.filter(entry => entry.id !== id);
 }
 
 </script>
@@ -28,8 +32,8 @@ function deleteEntry(todo) {
       <div v-if="todos.length > 0" v-for="entry in todos">
         <div class="todo-entry">
           <input type="checkbox">
-          <span class="todo-text">{{ entry }}</span>
-          <button @click="deleteEntry(entry)" class="delete">Delete</button>
+          <span class="todo-text">{{ entry.name }}</span>
+          <button @click="deleteEntry(entry.id)" class="delete">Delete</button>
         </div>
       </div>
     <div v-else>Add an entry to your list</div>
