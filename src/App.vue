@@ -20,7 +20,7 @@ function addToList() {
       id: id,
       name: newTodo.value,
       completed: false,
-      priority: selectedPriority
+      priority: selectedPriority.value
     }
   );
   id++;
@@ -42,9 +42,9 @@ function deleteEntry(entryId) {
       <input type="text" id="entry" v-model="newTodo" placeholder="Add a new todo" required>
       <label>Priority:</label>
       <select v-model="selectedPriority" required>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
       </select>
       <input type="submit" value="Add Todo">
     </form>
@@ -98,8 +98,16 @@ main .todo-text {
   text-align: left;
 }
 
-main .High {
+main .high {
   background-color: red;
+}
+
+main .medium {
+  background-color: orange;
+}
+
+main .low {
+  background-color: yellow;
 }
 
 main .delete {
