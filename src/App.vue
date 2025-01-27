@@ -7,11 +7,25 @@ const todos = ref([]);
 const newTodo = ref("");
 const hideCompleted = ref(false);
 const selectedPriority = ref();
+const orderByPriority = ref(false);
+
+
+// Map of priorities so it is easy to change them or add additional ones later on
+const priorities = new Map();
+priorities.set("high",2);
+priorities.set("medium",1);
+priorities.set("low",0);
 
 
 const filteredTodos = computed(() => {
-  return hideCompleted.value ? todos.value.filter(entry => entry.completed === false) : todos.value;
+  // contains either the whole list or a list containing only the entrys where completed equals false based on the value of hideCompleted
+  let todoList = hideCompleted.value ? todos.value.filter(entry => entry.completed === false) : todos.value;
+
+  // sorts list either by priority or by id based on the value of orderByPriority
+  todoList = orderByPriority.value ? todoList.sort((a, b) => priorities.get(b.priority) - priorities.get(a.priority)) : todoList.sort((a,b) => a.id - b.id);
+  return todoList;
 });
+
 
 function addToList() {
 
@@ -39,7 +53,7 @@ function deleteEntry(entryId) {
   <main>
     <h2>ToDoList:</h2>
     <form @submit.prevent="addToList">
-      <input type="text" id="entry" v-model="newTodo" placeholder="Add a new todo" required>
+      <input type="text" class="entry" v-model="newTodo" placeholder="Add a new todo" required>
       <label>Priority:</label>
       <select v-model="selectedPriority" required>
         <option value="high">High</option>
@@ -58,6 +72,7 @@ function deleteEntry(entryId) {
     </div>
     <div v-else>Add an entry to your list</div>
     <button @click="hideCompleted = !hideCompleted">{{ hideCompleted ? "Show All" : "Hide completed" }}</button>
+    <button @click="orderByPriority = !orderByPriority">{{orderByPriority ? "Order by Date" : "Order by Priority"  }}</button>
 
   </main>
 </template>
@@ -94,12 +109,18 @@ main .todo-entry {
 main .todo-text {
   margin-left: 5px;
   flex-grow: 1;
-  /* Allow the text to take up remaining space */
   text-align: left;
 }
 
 main .high {
   background-color: red;
+}
+
+main .entry {
+  display: flex;
+  flex-grow: 1;
+  border: none;
+  background: transparent;
 }
 
 main .medium {
