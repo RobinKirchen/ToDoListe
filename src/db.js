@@ -12,3 +12,9 @@ export const connectToDatabase = async () => {
     console.error(`Error connecting to the databse ${err}`);
   }
 };
+
+export const  addEntry = async (collection, entry) => {
+  const result = await client.db("test").collection(collection).insertOne(entry);
+  console.log(result.insertedId);
+}
+

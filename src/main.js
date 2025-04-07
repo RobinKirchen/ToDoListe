@@ -1,10 +1,8 @@
-//import './assets/main.css'
-//import { createApp } from 'vue'
-//import App from './App.vue'
-import'./db.js'
-import { connectToDatabase } from './db.js'
+import './assets/main.css'
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
 
-//createApp(App).mount('#app');
-
-
-connectToDatabase();
+createApp(App)
+  .use(router)
+  .mount('#app')
