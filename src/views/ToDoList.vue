@@ -50,7 +50,7 @@ function deleteEntry(entryId) {
 </script>
 
 <template>
-  <main>
+  <main class="todo-page">
     <h2>ToDoList:</h2>
     <form @submit.prevent="addToList">
       <input type="text" class="entry" v-model="newTodo" placeholder="Add a new todo" required>
@@ -81,23 +81,6 @@ function deleteEntry(entryId) {
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 
 main .todo-entry {
   display: flex;
