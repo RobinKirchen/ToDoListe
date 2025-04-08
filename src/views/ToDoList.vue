@@ -12,9 +12,9 @@ const orderByPriority = ref(false);
 
 // Map of priorities so it is easy to change them or add additional ones later on
 const priorities = new Map();
-priorities.set("high",2);
-priorities.set("medium",1);
-priorities.set("low",0);
+priorities.set("high", 2);
+priorities.set("medium", 1);
+priorities.set("low", 0);
 
 
 const filteredTodos = computed(() => {
@@ -22,7 +22,7 @@ const filteredTodos = computed(() => {
   let todoList = hideCompleted.value ? todos.value.filter(entry => entry.completed === false) : todos.value;
 
   // sorts list either by priority or by id based on the value of orderByPriority
-  todoList = orderByPriority.value ? todoList.sort((a, b) => priorities.get(b.priority) - priorities.get(a.priority)) : todoList.sort((a,b) => a.id - b.id);
+  todoList = orderByPriority.value ? todoList.sort((a, b) => priorities.get(b.priority) - priorities.get(a.priority)) : todoList.sort((a, b) => a.id - b.id);
   return todoList;
 });
 
@@ -63,16 +63,19 @@ function deleteEntry(entryId) {
       <input type="submit" value="Add Todo">
     </form>
 
-    <div v-if="todos.length > 0" v-for="entry in filteredTodos">
-      <div class="todo-entry" :class="entry.priority">
-        <input type="checkbox" v-model="entry.completed">
-        <span class="todo-text">{{ entry.name }}</span>
-        <button @click="deleteEntry(entry.id)" class="delete">X</button>
+    <div v-if="todos.length > 0">
+      <div v-for="entry in filteredTodos" :key="entry.id">
+        <div class="todo-entry" :class="entry.priority">
+          <input type="checkbox" v-model="entry.completed">
+          <span class="todo-text">{{ entry.name }}</span>
+          <button @click="deleteEntry(entry.id)" class="delete">X</button>
+        </div>
       </div>
     </div>
     <div v-else>Add an entry to your list</div>
     <button @click="hideCompleted = !hideCompleted">{{ hideCompleted ? "Show All" : "Hide completed" }}</button>
-    <button @click="orderByPriority = !orderByPriority">{{orderByPriority ? "Order by Date" : "Order by Priority"  }}</button>
+    <button @click="orderByPriority = !orderByPriority">{{ orderByPriority ? "Order by Date" : "Order by Priority"
+      }}</button>
 
   </main>
 </template>

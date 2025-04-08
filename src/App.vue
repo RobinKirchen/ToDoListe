@@ -1,10 +1,10 @@
+<script setup>
+import Sidebar from './components/Sidebar.vue'
+</script>
+
 <template>
-  <h1>Hello App!</h1>
   <div class="app">
-    <nav>
-      <RouterLink to="/">Go to Home</RouterLink>
-      <RouterLink to="/toDoList">Go to About</RouterLink>
-    </nav>
+    <Sidebar/>
     <RouterView />
   </div>
 </template>
