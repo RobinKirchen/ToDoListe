@@ -28,6 +28,15 @@ import Sidebar from './components/Sidebar.vue'
   box-sizing:border-box;
 }
 
+
+button {
+	cursor: pointer;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+}
+
 .app{
   display:flex;
 
